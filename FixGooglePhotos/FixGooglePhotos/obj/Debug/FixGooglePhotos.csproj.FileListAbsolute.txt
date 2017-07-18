@@ -1,0 +1,9 @@
+D:\visual studio 2012\Projects\FixGooglePhotos\FixGooglePhotos\bin\Debug\FixGooglePhotos.exe.config
+D:\visual studio 2012\Projects\FixGooglePhotos\FixGooglePhotos\bin\Debug\FixGooglePhotos.exe
+D:\visual studio 2012\Projects\FixGooglePhotos\FixGooglePhotos\bin\Debug\FixGooglePhotos.pdb
+D:\visual studio 2012\Projects\FixGooglePhotos\FixGooglePhotos\obj\Debug\FixGooglePhotos.csprojResolveAssemblyReference.cache
+D:\visual studio 2012\Projects\FixGooglePhotos\FixGooglePhotos\obj\Debug\FixGooglePhotos.Form1.resources
+D:\visual studio 2012\Projects\FixGooglePhotos\FixGooglePhotos\obj\Debug\FixGooglePhotos.Properties.Resources.resources
+D:\visual studio 2012\Projects\FixGooglePhotos\FixGooglePhotos\obj\Debug\FixGooglePhotos.csproj.GenerateResource.Cache
+D:\visual studio 2012\Projects\FixGooglePhotos\FixGooglePhotos\obj\Debug\FixGooglePhotos.exe
+D:\visual studio 2012\Projects\FixGooglePhotos\FixGooglePhotos\obj\Debug\FixGooglePhotos.pdb
