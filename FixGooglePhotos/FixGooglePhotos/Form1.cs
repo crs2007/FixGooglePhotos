@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -36,7 +36,12 @@ namespace FixGooglePhotos
             if (res == DialogResult.Yes)
             {
                 deleteAllFilesByType(vdirectoryPath, vFileType);
-                moveAllFilesByType(vdirectoryPath, vFileType);
+                deleteAllFilesByGoogle(vdirectoryPath);
+                moveAllFilesByType(vdirectoryPath, "jpg");
+                moveAllFilesByType(vdirectoryPath, "jpeg");
+                moveAllFilesByType(vdirectoryPath, "gif");
+                moveAllFilesByType(vdirectoryPath, "mp4");
+                moveAllFilesByType(vdirectoryPath, "3gp");
                 deleteAllEmptyDirectory(vdirectoryPath);
             }
         }
@@ -51,13 +56,59 @@ namespace FixGooglePhotos
            
         }
 
-        private void moveAllFilesByType(string directoryPath, string extension)
+        private void deleteAllFilesByGoogle(string directoryPath)
         {
             if (!Directory.Exists(directoryPath))
                 return;
 
             var fileGenerationDir = new DirectoryInfo(Path.Combine(Path.GetTempPath(), directoryPath));
-            fileGenerationDir.GetFiles(String.Concat("*.", extension), SearchOption.AllDirectories).ToList().ForEach(file => file.MoveTo(directoryPath));
+            fileGenerationDir.GetFiles("*MOTION.*", SearchOption.AllDirectories).ToList().ForEach(file => file.Delete());
+            fileGenerationDir.GetFiles("*edited.*", SearchOption.AllDirectories).ToList().ForEach(file => file.Delete());
+
+        }
+
+        private void moveAllFilesByType(string directoryPath, string extension)
+        {
+            if (!Directory.Exists(directoryPath))
+                return;
+
+            List<String> MyPicFiles = Directory.GetFiles(directoryPath, String.Concat("*.", extension), SearchOption.AllDirectories).ToList();
+
+            foreach (string file in MyPicFiles)
+            {
+                try
+                {
+                    FileInfo mFile = new FileInfo(file);
+                    // to remove name collisions
+                    if (new FileInfo(String.Concat(directoryPath, mFile.Name)).Exists)
+                    {
+                        try
+                        {
+                            mFile.MoveTo(String.Concat(directoryPath, String.Concat(Path.GetFileNameWithoutExtension(mFile.Name), "_1.", Path.GetExtension(mFile.Name))));
+                        }
+                        catch (Exception)
+                        {
+                            
+                        } 
+                    }
+                    else
+                    {
+                        mFile.MoveTo(String.Concat(directoryPath, mFile.Name));
+                    }
+                }
+                catch (IOException e)
+                {
+
+                    throw;
+                }
+            }
+
+            //var fileGenerationDir = new DirectoryInfo(Path.Combine(Path.GetTempPath(), directoryPath));
+            
+            //    fileGenerationDir.GetFiles(String.Concat("*.", extension), SearchOption.AllDirectories).ToList().ForEach(file => file.MoveTo(String.Concat(directoryPath, file.Name)));
+            
+            
+
 
         }
 
@@ -69,7 +120,7 @@ namespace FixGooglePhotos
 
             foreach (var directory in Directory.GetDirectories(directoryPath))
             {
-                deleteAllEmptyDirectory(directoryPath);
+                deleteAllEmptyDirectory(directory);
                 if (Directory.GetFiles(directory).Length == 0 &&
                     Directory.GetDirectories(directory).Length == 0)
                 {
